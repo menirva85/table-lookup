@@ -1,74 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>APUMS 2023 Table Finder</title>
     <style>
         body {
-            font-family: 'Georgia', serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #4B4B4B; /* Dark grey background */
             color: #D4AF37; /* Gold text color */
             text-align: center;
             margin: 0;
             padding: 20px;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
         }
         h1 {
             color: #D4AF37;
-            font-size: 3.3em; /* Increase size of the title */
-            margin-bottom: 0.5em;
+            font-size: 2em; /* Increase size of the title */
         }
         input[type="text"] {
             padding: 10px;
-            margin: 0 auto 20px;
+            margin-right: 10px;
             border: 2px solid #D4AF37;
             border-radius: 5px;
-            font-size: 1.4em; /* Increase font size */
-            background-color: #fff;
-            display: block;
+            font-size: 1em; /* Increase font size */
         }
         button {
-            padding: 10px 20px;
+            padding: 10px;
             background-color: #D4AF37; /* Gold background for button */
             color: #4B4B4B; /* Dark grey text color for button */
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 1.1em; /* Increase font size */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* subtle shadow for depth */
-            display: block;
-            margin: 10px auto;
+            font-size: 1em; /* Increase font size */
         }
         button:hover {
             background-color: #C5A12E; /* Slightly darker gold for hover effect */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* deeper shadow for hover */
         }
         table {
             border-collapse: collapse;
             margin: 20px auto; /* Center the table with margin */
             max-width: 800px;
             width: 100%;
-            font-size: 1.6em; /* Increase font size of table */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* subtle shadow for depth */
+            font-size: 1.1em; /* Increase font size of table */
         }
         th, td {
             border: 1px solid #D4AF37;
             padding: 8px;
             text-align: left; /* Default left align */
             font-weight: bold; /* Make table text bold */
-            background-color: #fff;
         }
         th:nth-child(2), td:nth-child(2) {
             text-align: right; /* Align the second column header and content to the right */
         }
         @media screen and (max-width: 600px) {
-            h1 {
-                font-size: 1.5em; /* Smaller font size for the title on small screens */
-            }
-            table, input[type="text"], button {
+            table {
                 max-width: 100%;
-                font-size: 1.3em; /* Adjust font size for smaller screens */
             }
             th, td {
                 padding: 4px;
@@ -77,40 +61,42 @@
     </style>
 </head>
 <body>
-    <h1>APUMS 2023 Table Finder</h1>
-    <input type="text" id="nameInput" placeholder="Enter Name">
-    <button onclick="searchName()">Search</button>
-    <div id="result"></div>
+    <div>
+        <h1>APUMS 2023 Table Finder</h1>
+        <input type="text" id="nameInput" placeholder="Enter Name">
+        <button onclick="searchName()">Search</button>
+        <div id="result"></div>
+    </div>
 
     <script>
-        function searchName() {
-            var inputName = document.getElementById('nameInput').value.trim().toLowerCase();
-            fetch('https://raw.githubusercontent.com/menirva85/table-lookup/main/name_table_list.csv')
-            .then(response => response.text())
-            .then(text => {
-                var lines = text.split('\n');
-                var table = '<table><tr><th>Name</th><th style="text-align: right;">Table Number</th></tr>';
-                var found = false;
-                for (var i = 0; i < lines.length; i++) {
-                    var cells = lines[i].split(',');
-                    var name = cells[0].trim().toLowerCase();
-                    if (name.includes(inputName)) {
-                        table += '<tr><td>' + cells[0].trim() + '</td><td style="text-align: right;">' + cells[1].trim() + '</td></tr>';
-                        found = true;
-                    }
+    function searchName() {
+        var inputName = document.getElementById('nameInput').value.trim().toLowerCase();
+        fetch('https://raw.githubusercontent.com/menirva85/table-lookup/main/name_table_list.csv')
+        .then(response => response.text())
+        .then(text => {
+            var lines = text.split('\n');
+            var table = '<table><tr><th>Name</th><th style="text-align: right;">Table Number</th></tr>';
+            var found = false;
+            for (var i = 0; i < lines.length; i++) {
+                var cells = lines[i].split(',');
+                var name = cells[0].trim().toLowerCase();
+                if (name.includes(inputName)) {
+                    table += '<tr><td>' + cells[0].trim() + '</td><td style="text-align: right;">' + cells[1].trim() + '</td></tr>';
+                    found = true;
                 }
-                table += '</table>';
+            }
+            table += '</table>';
 
-                if (found) {
-                    document.getElementById('result').innerHTML = table;
-                } else {
-                    document.getElementById('result').innerText = "Name not found";
-                }
-            })
-            .catch(error => {
-                document.getElementById('result').innerText = "Error: " + error;
-            });
-        }
+            if (found) {
+                document.getElementById('result').innerHTML = table;
+            } else {
+                document.getElementById('result').innerText = "Name not found";
+            }
+        })
+        .catch(error => {
+            document.getElementById('result').innerText = "Error: " + error;
+        });
+    }
     </script>
 </body>
 </html>
