@@ -3,6 +3,10 @@
 <head>
     <title>Table Number Lookup</title>
     <style>
+        body {
+            text-align: center; /* Center aligns everything in the body */
+        }
+
         /* Base table styling */
         table {
             border-collapse: collapse;
@@ -35,7 +39,7 @@
 <body>
     <div>
         <h1>Find Your Table Number</h1>
-        <input type="text" id="nameInput" placeholder="Enter Name">
+        <input type="text" id="nameInput" placeholder="Enter Name" style="margin-right: 10px;">
         <button onclick="searchName()">Search</button>
         <p id="result"></p>
     </div>
