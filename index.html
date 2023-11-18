@@ -7,21 +7,24 @@
 
 <script>
 function searchName() {
-    var name = document.getElementById('nameInput').value;
+    var inputName = document.getElementById('nameInput').value.trim().toLowerCase();
     fetch('https://raw.githubusercontent.com/menirva85/table-lookup/main/name_table_list.csv')
     .then(response => response.text())
     .then(text => {
         var lines = text.split('\n');
+        var resultText = '';
         var found = false;
         for (var i = 0; i < lines.length; i++) {
             var cells = lines[i].split(',');
-            if (cells[0].trim().toLowerCase() === name.toLowerCase().trim()) {
-                document.getElementById('result').innerText = cells[0].trim() + " : Table number " + cells[1].trim();
+            var name = cells[0].trim().toLowerCase();
+            if (name.includes(inputName)) {
+                resultText += cells[0].trim() + " : Table number " + cells[1].trim() + '\n';
                 found = true;
-                break;
             }
         }
-        if (!found) {
+        if (found) {
+            document.getElementById('result').innerText = resultText;
+        } else {
             document.getElementById('result').innerText = "Name not found";
         }
     })
@@ -29,4 +32,5 @@ function searchName() {
         document.getElementById('result').innerText = "Error: " + error;
     });
 }
+
 </script>
