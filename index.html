@@ -1,37 +1,61 @@
-<div>
-    <h1>Find Your Table Number</h1>
-    <input type="text" id="nameInput" placeholder="Enter Name">
-    <button onclick="searchName()">Search</button>
-    <p id="result"></p>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table Number Lookup</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left; /* Default alignment for all cells */
+        }
+        td:nth-child(2) { /* Targeting the second column */
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Find Your Table Number</h1>
+        <input type="text" id="nameInput" placeholder="Enter Name">
+        <button onclick="searchName()">Search</button>
+        <p id="result"></p>
+    </div>
 
-<script>
-function searchName() {
-    var inputName = document.getElementById('nameInput').value.trim().toLowerCase();
-    fetch('https://raw.githubusercontent.com/menirva85/table-lookup/main/name_table_list.csv')
-    .then(response => response.text())
-    .then(text => {
-        var lines = text.split('\n');
-        var table = '<table><tr><th>Name</th><th>Table Number</th></tr>';
-        var found = false;
-        for (var i = 0; i < lines.length; i++) {
-            var cells = lines[i].split(',');
-            var name = cells[0].trim().toLowerCase();
-            if (name.includes(inputName)) {
-                table += '<tr><td>' + cells[0].trim() + '</td><td>' + cells[1].trim() + '</td></tr>';
-                found = true;
+    <script>
+    function searchName() {
+        var inputName = document.getElementById('nameInput').value.trim().toLowerCase();
+        fetch('https://raw.githubusercontent.com/menirva85/table-lookup/main/name_table_list.csv')
+        .then(response => response.text())
+        .then(text => {
+            var lines = text.split('\n');
+            var table = '<table><tr><th>Name</th><th>Table Number</th></tr>';
+            var found = false;
+            for (var i = 0; i < lines.length; i++) {
+                var cells = lines[i].split(',');
+                var name = cells[0].trim().toLowerCase();
+                if (name.includes(inputName)) {
+                    table += '<tr><td>' + cells[0].trim() + '</td><td>' + cells[1].trim() + '</td></tr>';
+                    found = true;
+                }
             }
-        }
-        table += '</table>';
+            table += '</table>';
 
-        if (found) {
-            document.getElementById('result').innerHTML = table;
-        } else {
-            document.getElementById('result').innerText = "Name not found";
-        }
-    })
-    .catch(error => {
-        document.getElementById('result').innerText = "Error: " + error;
-    });
-}
-</script>
+            if (found) {
+                document.getElementById('result').innerHTML = table;
+            } else {
+                document.getElementById('result').innerText = "Name not found";
+            }
+        })
+        .catch(error => {
+            document.getElementById('result').innerText = "Error: " + error;
+        });
+    }
+    </script>
+</body>
+</html>
