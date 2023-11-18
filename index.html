@@ -6,22 +6,27 @@
 </div>
 
 <script>
-    var data = {
-        "Alice": 1,
-        "Bob": 2,
-        // Add your data here in the format "Name": TableNumber
-    };
-
-    function searchName() {
-        var name = document.getElementById('nameInput').value;
-        fetch('https://script.google.com/a/macros/ums.edu.my/s/AKfycbys2PIoTUeBJOOaxLBExDSQv3MwpL5BRwq_Z7gWCSkUGUll3-Or6EZ_h4dZETh058Q/exec' + name)
-        .then(response => response.text())
-        .then(text => {
-            document.getElementById('result').innerText = "Table Number: " + text;
-        })
-        .catch(error => {
-            document.getElementById('result').innerText = "Error: " + error;
-        });
-    }
+function searchName() {
+    var name = document.getElementById('nameInput').value;
+    fetch('https://raw.githubusercontent.com/menirva85/table-lookup/main/name_table_list.csv')
+    .then(response => response.text())
+    .then(text => {
+        var lines = text.split('\n');
+        var found = false;
+        for (var i = 0; i < lines.length; i++) {
+            var cells = lines[i].split(',');
+            if (cells[0].trim().toLowerCase() === name.toLowerCase().trim()) {
+                document.getElementById('result').innerText = "Table Number: " + cells[1].trim();
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            document.getElementById('result').innerText = "Name not found";
+        }
+    })
+    .catch(error => {
+        document.getElementById('result').innerText = "Error: " + error;
+    });
+}
 </script>
-
