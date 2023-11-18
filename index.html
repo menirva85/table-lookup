@@ -16,7 +16,7 @@ function searchName() {
         for (var i = 0; i < lines.length; i++) {
             var cells = lines[i].split(',');
             if (cells[0].trim().toLowerCase() === name.toLowerCase().trim()) {
-                document.getElementById('result').innerText = "Table Number: " + cells[1].trim();
+                document.getElementById('result').innerText = name + " : " + cells[1].trim();
                 found = true;
                 break;
             }
@@ -29,4 +29,5 @@ function searchName() {
         document.getElementById('result').innerText = "Error: " + error;
     });
 }
+
 </script>
