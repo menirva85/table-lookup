@@ -3,19 +3,32 @@
 <head>
     <title>Table Number Lookup</title>
     <style>
+        /* Base table styling */
         table {
-            width: 100%;
             border-collapse: collapse;
+            margin: 0 auto; /* Center the table */
+            max-width: 800px; /* Maximum width */
         }
         table, th, td {
             border: 1px solid black;
         }
         th, td {
             padding: 8px;
-            text-align: left; /* Default alignment for all cells */
+            text-align: left;
         }
-        td:nth-child(2) { /* Targeting the second column */
+        td:nth-child(2) {
             text-align: right;
+        }
+
+        /* Responsive styling for smaller screens */
+        @media screen and (max-width: 600px) {
+            table {
+                width: 100%;
+                max-width: 100%; /* Allow table to fill small screens */
+            }
+            th, td {
+                padding: 4px; /* Smaller padding for smaller screens */
+            }
         }
     </style>
 </head>
