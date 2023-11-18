@@ -1,1 +1,25 @@
+<div>
+    <h1>Find Your Table Number</h1>
+    <input type="text" id="nameInput" placeholder="Enter Name">
+    <button onclick="searchName()">Search</button>
+    <p id="result"></p>
+</div>
+
+<script>
+    var data = {
+        "Alice": 1,
+        "Bob": 2,
+        // Add your data here in the format "Name": TableNumber
+    };
+
+    function searchName() {
+        var name = document.getElementById('nameInput').value;
+        var tableNumber = data[name];
+        if (tableNumber) {
+            document.getElementById('result').innerText = "Table Number: " + tableNumber;
+        } else {
+            document.getElementById('result').innerText = "Name not found";
+        }
+    }
+</script>
 
