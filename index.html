@@ -14,12 +14,14 @@
 
     function searchName() {
         var name = document.getElementById('nameInput').value;
-        var tableNumber = data[name];
-        if (tableNumber) {
-            document.getElementById('result').innerText = "Table Number: " + tableNumber;
-        } else {
-            document.getElementById('result').innerText = "Name not found";
-        }
+        fetch('https://script.google.com/a/macros/ums.edu.my/s/AKfycbys2PIoTUeBJOOaxLBExDSQv3MwpL5BRwq_Z7gWCSkUGUll3-Or6EZ_h4dZETh058Q/exec' + name)
+        .then(response => response.text())
+        .then(text => {
+            document.getElementById('result').innerText = "Table Number: " + text;
+        })
+        .catch(error => {
+            document.getElementById('result').innerText = "Error: " + error;
+        });
     }
 </script>
 
