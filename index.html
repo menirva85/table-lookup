@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>APUMS 2023 Table Finder</title>
     <style>
         body {
@@ -63,10 +61,12 @@
     </style>
 </head>
 <body>
-    <h1>APUMS 2023 Table Finder</h1>
-    <input type="text" id="nameInput" placeholder="Enter Name">
-    <button onclick="searchName()">Search</button>
-    <div id="result"></div>
+    <div>
+        <h1>APUMS 2023 Table Finder</h1>
+        <input type="text" id="nameInput" placeholder="Enter Name">
+        <button onclick="searchName()">Search</button>
+        <div id="result"></div>
+    </div>
 
     <script>
     function searchName() {
@@ -97,26 +97,6 @@
             document.getElementById('result').innerText = "Error: " + error;
         });
     }
-
-        function savePrompt(userInput) {
-            var data = {
-                'prompt': userInput
-            };
-
-            fetch('https://script.google.com/macros/s/AKfycbwQvoT0rFgchk5ckQ6FcL3R0zmwfYU7NT64DwAJ9YdBlJqKXQ6VdDIQzbXJtE4S48A/exec', {
-                method: 'POST',
-                mode: 'no-cors', // This is important to avoid CORS errors
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                console.log('Data saved');
-                // You can update the UI here to inform the user that their input has been saved
-            })
-            .catch(error => console.error('Error:', error));
-        }
     </script>
 </body>
 </html>
