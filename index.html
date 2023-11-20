@@ -47,20 +47,40 @@
         th:nth-child(2), td:nth-child(2) {
             text-align: right;
         }
-        iframe {
-            width: 90%; /* Relative width */
-            height: auto;
-            margin-top: 30px;
-        }
-        @media screen and (max-width: 600px) {
-            h1, input[type="text"], button, table {
-                font-size: 1em;
-                width: 100%; /* Full width on smaller screens */
-            }
-            th, td {
-                padding: 4px;
-            }
-        }
+		iframe {
+			width: 90%; /* Default width for larger screens */
+			height: 900px; /* Default height */
+			margin-top: 30px; /* Space above the Google Form */
+			border: none; /* Remove iframe border */
+			display: block; /* Ensures the iframe is a block element */
+			margin-left: auto;
+			margin-right: auto; /* Centers the iframe */
+		}
+		@media screen and (max-width: 600px) {
+			h1 {
+				font-size: 1.8em; /* Adjusted font size for the title */
+			}
+			input[type="text"], button {
+				font-size: 1em; /* Smaller font size for input and button */
+				padding: 8px;
+				width: 100%; /* Full width */
+				margin: 10px 0; /* Spacing */
+				box-sizing: border-box;
+			}
+			table {
+				max-width: 100%;
+				font-size: 1em; /* Smaller font size for table */
+				overflow-x: auto; /* Enable scrolling for table */
+			}
+			th, td {
+				padding: 4px; /* Smaller padding for table cells */
+			}
+			iframe {
+				width: 100%; /* Full width for iframe on smaller screens */
+				height: auto; /* Auto-adjust height */
+				margin-top: 30px; /* Space above the form */
+			}
+		}
     </style>
 </head>
 <body>
@@ -71,7 +91,7 @@
         <div id="result"></div>
     </div>
 
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfnjPFkg0SeQfR_aGNddUg1VHQWkH_Kc1k3b4lssQOD7UcGzA/viewform?embedded=true" height="900" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfnjPFkg0SeQfR_aGNddUg1VHQWkH_Kc1k3b4lssQOD7UcGzA/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 
     <script>
     function searchName() {
