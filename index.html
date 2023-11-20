@@ -5,7 +5,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f3e1; /* Dark grey background */
+            background-color: #f9f3e1; /* Light background color */
             color: #D4AF37; /* Gold text color */
             text-align: center;
             margin: 0;
@@ -50,16 +50,33 @@
         th:nth-child(2), td:nth-child(2) {
             text-align: right; /* Align the second column header and content to the right */
         }
+
+        /* Responsive styles */
         @media screen and (max-width: 600px) {
+            h1 {
+                font-size: 1.8em; /* Smaller title font on small screens */
+            }
+            input[type="text"], button {
+                font-size: 1em; /* Smaller font size */
+                padding: 8px;
+                width: 100%; /* Full width */
+                margin: 10px 0; /* Spacing */
+                box-sizing: border-box;
+            }
             table {
                 max-width: 100%;
+                font-size: 1em; /* Smaller font size */
+                overflow-x: auto; /* Scroll for table */
             }
             th, td {
                 padding: 4px;
             }
+            iframe {
+                width: 100%; /* Full width for iframe */
+                height: auto; /* Auto-adjust height */
+            }
         }
 
-        /* Add a style for the iframe */
         iframe {
             margin-top: 30px; /* Space above the Google Form */
         }
@@ -68,43 +85,43 @@
 <body>
     <div>
         <h1>APUMS 2023 Table Finder</h1>
-        <input type="text" id="nameInput" placeholder="Enter Name (e.g. john)">
+        <input type="text" id="nameInput" placeholder="Enter Name">
         <button onclick="searchName()">Search Table</button>
         <div id="result"></div>
     </div>
 
-    <!-- Add your Google Form embed code below -->
+    <!-- Google Form embed code -->
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfnjPFkg0SeQfR_aGNddUg1VHQWkH_Kc1k3b4lssQOD7UcGzA/viewform?embedded=true" width="700" height="900" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 
     <script>
-    function searchName() {
-        var inputName = document.getElementById('nameInput').value.trim().toLowerCase();
-        fetch('https://raw.githubusercontent.com/menirva85/table-lookup/main/name_table_list.csv')
-        .then(response => response.text())
-        .then(text => {
-            var lines = text.split('\n');
-            var table = '<table><tr><th>Name</th><th style="text-align: right;">Table Number</th></tr>';
-            var found = false;
-            for (var i = 0; i < lines.length; i++) {
-                var cells = lines[i].split(',');
-                var name = cells[0].trim().toLowerCase();
-                if (name.includes(inputName)) {
-                    table += '<tr><td>' + cells[0].trim() + '</td><td style="text-align: right;">' + cells[1].trim() + '</td></tr>';
-                    found = true;
+        function searchName() {
+            var inputName = document.getElementById('nameInput').value.trim().toLowerCase();
+            fetch('https://raw.githubusercontent.com/menirva85/table-lookup/main/name_table_list.csv')
+            .then(response => response.text())
+            .then(text => {
+                var lines = text.split('\n');
+                var table = '<table><tr><th>Name</th><th style="text-align: right;">Table Number</th></tr>';
+                var found = false;
+                for (var i = 0; i < lines.length; i++) {
+                    var cells = lines[i].split(',');
+                    var name = cells[0].trim().toLowerCase();
+                    if (name.includes(inputName)) {
+                        table += '<tr><td>' + cells[0].trim() + '</td><td style="text-align: right;">' + cells[1].trim() + '</td></tr>';
+                        found = true;
+                    }
                 }
-            }
-            table += '</table>';
+                table += '</table>';
 
-            if (found) {
-                document.getElementById('result').innerHTML = table;
-            } else {
-                document.getElementById('result').innerText = "Name not found";
-            }
-        })
-        .catch(error => {
-            document.getElementById('result').innerText = "Error: " + error;
-        });
-    }
+                if (found) {
+                    document.getElementById('result').innerHTML = table;
+                } else {
+                    document.getElementById('result').innerText = "Name not found";
+                }
+            })
+            .catch(error => {
+                document.getElementById('result').innerText = "Error: " + error;
+            });
+        }
     </script>
 </body>
 </html>
