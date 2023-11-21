@@ -20,8 +20,8 @@
             margin: 5px 0;
             border: 2px solid #D4AF37;
             border-radius: 5px;
-            font-size: 1.5em;
-            width: 80%; /* Relative width */
+            font-size: 1.3em;
+            width: 90%; /* Relative width */
             box-sizing: border-box; /* Include padding and border in width */
         }
         button {
@@ -35,7 +35,7 @@
         table {
             border-collapse: collapse;
             margin: 20px auto;
-            width: 80%; /* Relative width */
+            width: 90%; /* Relative width */
             font-size: 1.43em;
         }
         th, td {
@@ -47,55 +47,31 @@
         th:nth-child(2), td:nth-child(2) {
             text-align: right;
         }
-		iframe {
-			
-         transform: scale(1.2); 
-        /* transform-origin: center; /* Scale from the center */
-        width: 100%; /* Adjust as necessary */
-        height: 1000px; /* Adjust the height as necessary */
-        display: block; /* Ensures the iframe is a block element */
-	border: none; /* Remove iframe border */
-        margin-left: auto;
-        margin-right: auto; /* Centers the iframe horizontally */
-        margin-top: 120px; /* Top margin */
-			
-		}
-		@media screen and (max-width: 600px) {
-			h1 {
-				font-size: 1.8em; /* Adjusted font size for the title */
-			}
-			input[type="text"], button {
-				font-size: 1em; /* Smaller font size for input and button */
-				padding: 8px;
-				width: 100%; /* Full width */
-				margin: 10px 0; /* Spacing */
-				box-sizing: border-box;
-			}
-			table {
-				max-width: 100%;
-				font-size: 1em; /* Smaller font size for table */
-				overflow-x: auto; /* Enable scrolling for table */
-			}
-			th, td {
-				padding: 4px; /* Smaller padding for table cells */
-			}
-			iframe {
-				width: 100%; /* Full width for iframe on smaller screens */
-				height: auto; /* Auto-adjust height */
-				margin-top: 30px; /* Space above the form */
-			}
-		}
+        iframe {
+            width: 90%; /* Relative width */
+            height: auto;
+            margin-top: 30px;
+        }
+        @media screen and (max-width: 600px) {
+            h1, input[type="text"], button, table {
+                font-size: 1em;
+                width: 100%; /* Full width on smaller screens */
+            }
+            th, td {
+                padding: 4px;
+            }
+        }
     </style>
 </head>
 <body>
     <div>
         <h1>APUMS 2023 Table Finder</h1>
-        <input type="text" id="nameInput" placeholder="Enter name and press Search Table">
+        <input type="text" id="nameInput" placeholder="Enter Name">
         <button onclick="searchName()">Search Table</button>
         <div id="result"></div>
     </div>
 
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfnjPFkg0SeQfR_aGNddUg1VHQWkH_Kc1k3b4lssQOD7UcGzA/viewform?embedded=true"/iframe>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfnjPFkg0SeQfR_aGNddUg1VHQWkH_Kc1k3b4lssQOD7UcGzA/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 
     <script>
     function searchName() {
