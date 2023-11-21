@@ -48,9 +48,14 @@
             text-align: right;
         }
         iframe {
-            width: 90%; /* Relative width */
-            height: auto;
-            margin-top: 30px;
+        width: 100%; /* Adjust as necessary */
+        height: 1000px; /* Adjust the height as necessary */
+        display: block; /* Ensures the iframe is a block element */
+	    border: none; /* Remove iframe border */
+        margin-left: auto;
+        margin-right: auto; /* Centers the iframe horizontally */
+        margin-top: 30px; /* Top margin */
+            
         }
         @media screen and (max-width: 600px) {
             h1, input[type="text"], button, table {
@@ -60,6 +65,11 @@
             th, td {
                 padding: 4px;
             }
+			iframe {
+				width: 100%; /* Full width for iframe on smaller screens */
+				height: auto; /* Auto-adjust height */
+				margin-top: 30px; /* Space above the form */
+			}
         }
     </style>
 </head>
