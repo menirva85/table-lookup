@@ -86,7 +86,7 @@
     <script>
     function searchName() {
         var inputName = document.getElementById('nameInput').value.trim().toLowerCase();
-        fetch('https://raw.githubusercontent.com/menirva85/table-lookup/main/name_table_list.csv')
+        fetch('https://raw.githubusercontent.com/menirva85/table-lookup/main/name_table_list_full.csv')
         .then(response => response.text())
         .then(text => {
             var lines = text.split('\n');
