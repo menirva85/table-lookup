@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>APUMS 2023 Marks Lookup</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f3e1;
+            color: #D4AF37;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #D4AF37;
+            font-size: 2.6em;
+        }
+        input[type="text"], button {
+            padding: 10px;
+            margin: 5px 0;
+            border: 2px solid #D4AF37;
+            border-radius: 5px;
+            font-size: 1.3em;
+            width: 90%;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #D4AF37;
+            color: #4B4B4B;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #C5A12E;
+        }
+        table {
+            border-collapse: collapse;
+            margin: 20px auto;
+            width: 90%;
+            font-size: 1.43em;
+        }
+        th, td {
+            border: 1px solid #D4AF37;
+            padding: 8px;
+            text-align: left;
+            font-weight: bold;
+        }
+        th:nth-child(2), td:nth-child(2) {
+            text-align: right;
+        }
+        @media screen and (max-width: 600px) {
+            h1, input[type="text"], button, table {
+                font-size: 1em;
+                width: 100%;
+            }
+            th, td {
+                padding: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>APUMS 2023 Marks Lookup</h1>
+        <input type="text" id="matrixInput" placeholder="Enter Matrix No">
+        <button onclick="searchMarks()">Search</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+    function searchMarks() {
+        var inputMatrix = document.getElementById('matrixInput').value.trim().toLowerCase();
+        fetch('https://raw.githubusercontent.com/menirva85/carrymark/main/carrymark.csv')
+        .then(response => response.text())
+        .then(text => {
+            var lines = text.split('\n');
+            var found = false;
+            var output = '<table><tr><th>Name</th><th>Matrix No</th><th>IA1</th><th>IA2</th><th>IA3</th><th>IA4</th><th>IA5</th><th>Quiz</th><th>Midterm</th><th>Group Assignment</th><th>Total</th></tr>';
+
+            for (var i = 1; i < lines.length; i++) {
+                var cells = lines[i].split(',');
+                var matrixNo = cells[2].trim().toLowerCase(); // Assuming the Matrix No is the third column
+                if (matrixNo === inputMatrix) {
+                    output += '<tr><td>' + cells[1].trim() + '</td><td>' + cells[2].trim() + '</td><td>' + cells[3].trim() + '</td><td>' + cells[4].trim() + '</td><td>' + cells[5].trim() + '</td><td>' + cells[6].trim() + '</td><td>' + cells[7].trim() + '</td><td>' + cells[8].trim() + '</td><td>' + cells[9].trim() + '</td><td>' + cells[10].trim() + '</td><td>' + cells[11].trim() + '</td></tr>';
+                    found = true;
+                    break; // Stop loop after finding the matrix no
+                }
+            }
+
+            output += '</table>';
+
+            if (found) {
+                document.getElementById('result').innerHTML = output;
+            } else {
+                document.getElementById('result').innerText = "Matrix No not found";
+            }
+        })
+        .catch(error => {
+            document.getElementById('result').innerText = "Error: " + error;
+        });
+    }
+    </script>
+</body>
+</html>
