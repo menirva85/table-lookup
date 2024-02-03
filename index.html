@@ -21,8 +21,8 @@
             border: 2px solid #D4AF37;
             border-radius: 5px;
             font-size: 1.3em;
-            width: 90%;
-            box-sizing: border-box;
+            width: 90%; /* Relative width */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
         }
         button {
             background-color: #D4AF37;
@@ -35,7 +35,7 @@
         table {
             border-collapse: collapse;
             margin: 20px auto;
-            width: 90%;
+            width: 90%; /* Relative width */
             font-size: 1.43em;
         }
         th, td {
@@ -44,13 +44,10 @@
             text-align: left;
             font-weight: bold;
         }
-        th:nth-child(2), td:nth-child(2) {
-            text-align: right;
-        }
         @media screen and (max-width: 600px) {
             h1, input[type="text"], button, table {
                 font-size: 1em;
-                width: 100%;
+                width: 100%; /* Full width on smaller screens */
             }
             th, td {
                 padding: 4px;
@@ -68,31 +65,27 @@
 
     <script>
     function searchMarks() {
-        var inputMatrix = document.getElementById('matrixInput').value.trim().toLowerCase();
-        fetch('https://raw.githubusercontent.com/menirva85/carrymark/main/carrymark.csv')
+        var matrixNo = document.getElementById('matrixInput').value.trim().toUpperCase(); // Adjusting for Matrix No input
+        fetch('https://raw.githubusercontent.com/menirva85/table-lookup/main/carrymark.csv') // Updated CSV file path
         .then(response => response.text())
         .then(text => {
             var lines = text.split('\n');
-            var found = false;
             var output = '<table><tr><th>Name</th><th>Matrix No</th><th>IA1</th><th>IA2</th><th>IA3</th><th>IA4</th><th>IA5</th><th>Quiz</th><th>Midterm</th><th>Group Assignment</th><th>Total</th></tr>';
-
-            for (var i = 1; i < lines.length; i++) {
+            var found = false;
+            for (var i = 1; i < lines.length; i++) { // Skipping the header row
                 var cells = lines[i].split(',');
-                var matrixNo = cells[2].trim().toLowerCase(); // Assuming the Matrix No is the third column
-                if (matrixNo === inputMatrix) {
-                    output += '<tr><td>' + cells[1].trim() + '</td><td>' + cells[2].trim() + '</td><td>' + cells[3].trim() + '</td><td>' + cells[4].trim() + '</td><td>' + cells[5].trim() + '</td><td>' + cells[6].trim() + '</td><td>' + cells[7].trim() + '</td><td>' + cells[8].trim() + '</td><td>' + cells[9].trim() + '</td><td>' + cells[10].trim() + '</td><td>' + cells[11].trim() + '</td></tr>';
+                if (cells[2].trim().toUpperCase() === matrixNo) { // Assuming Matrix No is in the third column
+                    output += '<tr>';
+                    for (var j = 1; j <= 11; j++) { // Looping through the relevant columns
+                        output += '<td>' + cells[j].trim() + '</td>';
+                    }
+                    output += '</tr>';
                     found = true;
-                    break; // Stop loop after finding the matrix no
+                    break; // Stop the loop once a match is found
                 }
             }
-
             output += '</table>';
-
-            if (found) {
-                document.getElementById('result').innerHTML = output;
-            } else {
-                document.getElementById('result').innerText = "Matrix No not found";
-            }
+            document.getElementById('result').innerHTML = found ? output : "Matrix No not found";
         })
         .catch(error => {
             document.getElementById('result').innerText = "Error: " + error;
