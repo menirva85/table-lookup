@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>APUMS 2023 Marks Lookup</title>
+    <title>KT24903 CARRY MARKS</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f3e1;
-            color: #D4AF37;
+            background-color: #ffffff; /* White background */
+            color: #000000; /* Black text */
             text-align: center;
             margin: 0;
             padding: 20px;
         }
         h1 {
-            color: #D4AF37;
+            color: #000000; /* Black color for headers */
             font-size: 2.6em;
         }
         input[type="text"], button {
             padding: 10px;
             margin: 5px 0;
-            border: 2px solid #D4AF37;
+            border: 2px solid #000000; /* Black border */
             border-radius: 5px;
             font-size: 1.3em;
             width: 90%; /* Relative width */
             box-sizing: border-box; /* Include padding and border in the element's total width and height */
         }
         button {
-            background-color: #D4AF37;
-            color: #4B4B4B;
+            background-color: #000000; /* Black background for buttons */
+            color: #ffffff; /* White text on buttons */
             cursor: pointer;
         }
         button:hover {
-            background-color: #C5A12E;
+            background-color: #808080; /* Dark grey background for button hover */
         }
         table {
             border-collapse: collapse;
@@ -39,7 +39,7 @@
             font-size: 1.43em;
         }
         th, td {
-            border: 1px solid #D4AF37;
+            border: 1px solid #000000; /* Black borders for table */
             padding: 8px;
             text-align: left;
             font-weight: bold;
@@ -70,7 +70,7 @@
         .then(response => response.text())
         .then(text => {
             var lines = text.split('\n');
-            var output = '<table><tr><th>Name</th><th>Matrix No</th><th>IA1</th><th>IA2</th><th>IA3</th><th>IA4</th><th>IA5</th><th>Quiz</th><th>Midterm</th><th>Group Assignment</th><th>Total</th></tr>';
+            var output = '<table><tr><th>Name</th><th>Matrix No</th><th>IA1 3%</th><th>IA2 3%</th><th>IA3 3%</th><th>IA4 3%</th><th>IA5 3%</th><th>Quiz 10%</th><th>Midterm 20%</th><th>Group Assignment 15%</th><th>Total 60%</th></tr>';
             var found = false;
             for (var i = 1; i < lines.length; i++) { // Skipping the header row
                 var cells = lines[i].split(',');
