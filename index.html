@@ -70,15 +70,17 @@
         .then(response => response.text())
         .then(text => {
             var lines = text.split('\n');
-            var output = '<table><tr><th>Name</th><th>Matrix No</th><th>IA1 3%</th><th>IA2 3%</th><th>IA3 3%</th><th>IA4 3%</th><th>IA5 3%</th><th>Quiz 10%</th><th>Midterm 20%</th><th>Group Assignment 15%</th><th>Total 60%</th></tr>';
-			var output = '<table><tr><th>Name</th><th>Matrix No</th><th>Lab 1 (2.5%)</th><th>Lab 2 (2.5%)</th><th>Lab 3 (2.5%)</th><th>Lab 4 (2.5%)</th><th>Quiz 1 (5.0%)</th><th>Quiz 2 (5.0%)</th><th>Midterm (20.0%)</th><th>Group Assignment (20.0%)</th><th>Total (60.0%)</th></tr>';
+            var output = '<table><tr><th>Name</th><th>Matrix No</th><th>Lab 1 (2.5%)</th><th>Lab 2 (2.5%)</th><th>Lab 3 (2.5%)</th><th>Lab 4 (2.5%)</th><th>Quiz 1 (5.0%)</th><th>Quiz 2 (5.0%)</th><th>Midterm (20.0%)</th><th>Group Assignment (20.0%)</th><th>Total (60.0%)</th></tr>';
             var found = false;
             for (var i = 1; i < lines.length; i++) { // Skipping the header row
                 var cells = lines[i].split(',');
                 if (cells.length > 2 && cells[2].trim().toUpperCase() === matrixNo) { // Assuming Matrix No is in the third column
                     output += '<tr>';
                     for (var j = 1; j <= 11; j++) { // Looping through the relevant columns
-                        output += '<td>' + cells[j].trim() + '</td>';
+                        var mark = cells[j].trim();
+                        // Check if the mark is zero and apply red background color if true
+                        var color = (mark === '0') ? ' style="background-color: red;"' : '';
+                        output += '<td' + color + '>' + mark + '</td>';
                     }
                     output += '</tr>';
                     found = true;
