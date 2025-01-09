@@ -88,6 +88,12 @@
             background-color: red;
             color: white;
         }
+        .motivation-gif {
+            max-width: 300px;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
@@ -105,6 +111,9 @@
                 Welcome to KT24903 Carry Marks System! <br><br>
                 Please enter your matrix number to view your marks. <br>
                 Your marks will be displayed here after searching.
+            </div>
+            <div class="motivation-gif">
+                <img src="matsuoka-shuzo-never-give-up.gif" alt="Never Give Up Motivation" />
             </div>
         </div>
     </div>
@@ -124,7 +133,6 @@
                     output += '<tr>';
                     for (var j = 1; j <= 11; j++) {
                         var mark = cells[j].trim();
-                        // Check for both zero and empty/missing marks
                         var isZeroOrMissing = mark === '0' || mark === '' || mark === '0.0' || !mark;
                         var color = isZeroOrMissing ? ' style="background-color: red; color: white;"' : '';
                         output += '<td' + color + '>' + (mark || '0.0') + '</td>';
@@ -135,10 +143,12 @@
                 }
             }
             output += '</table>';
-            document.getElementById('result').innerHTML = found ? output : '<div class="chat-box"><div class="chat-icon">❌</div><div class="chat-message">Matrix number cannot be found. Please try again.</div></div>';
+            var motivationGif = '<div class="motivation-gif"><img src="matsuoka-shuzo-never-give-up.gif" alt="Never Give Up Motivation" /></div>';
+            document.getElementById('result').innerHTML = found ? output + motivationGif : '<div class="chat-box"><div class="chat-icon">❌</div><div class="chat-message">Matrix number cannot be found. Please try again.</div>' + motivationGif + '</div>';
         })
         .catch(error => {
-            document.getElementById('result').innerHTML = '<div class="chat-box"><div class="chat-icon">⚠️</div><div class="chat-message">Matrix number cannot be found. Please try again.</div></div>';
+            var motivationGif = '<div class="motivation-gif"><img src="/api/placeholder/300/200" alt="Never Give Up Motivation" /></div>';
+            document.getElementById('result').innerHTML = '<div class="chat-box"><div class="chat-icon">⚠️</div><div class="chat-message">Matrix number cannot be found. Please try again.</div>' + motivationGif + '</div>';
         });
     }
     </script>
