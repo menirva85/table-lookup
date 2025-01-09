@@ -75,7 +75,6 @@
         }
         .chat-message {
             margin-bottom: 15px;
-            text-align: center;
             font-size: 1.1em;
             line-height: 1.5;
             color: #333;
@@ -84,6 +83,10 @@
             font-size: 2em;
             margin-bottom: 10px;
             color: #000000;
+        }
+        .zero-mark {
+            background-color: red;
+            color: white;
         }
     </style>
 </head>
@@ -121,7 +124,9 @@
                     output += '<tr>';
                     for (var j = 1; j <= 11; j++) {
                         var mark = cells[j].trim();
-                        var color = (mark === '0' || mark === '' || mark === '0.0' || !mark) ? ' style="background-color: red; color: white;"' : '';
+                        // Check for both zero and empty/missing marks
+                        var isZeroOrMissing = mark === '0' || mark === '' || mark === '0.0' || !mark;
+                        var color = isZeroOrMissing ? ' style="background-color: red; color: white;"' : '';
                         output += '<td' + color + '>' + (mark || '0.0') + '</td>';
                     }
                     output += '</tr>';
@@ -130,12 +135,10 @@
                 }
             }
             output += '</table>';
-            document.getElementById('result').innerHTML = found ? output : 
-                '<div class="chat-box"><div class="chat-icon">❌</div><div class="chat-message">Matrix number cannot be found. Please try again.</div></div>';
+            document.getElementById('result').innerHTML = found ? output : '<div class="chat-box"><div class="chat-icon">❌</div><div class="chat-message">Matrix number cannot be found. Please try again.</div></div>';
         })
         .catch(error => {
-            document.getElementById('result').innerHTML = 
-                '<div class="chat-box"><div class="chat-icon">⚠️</div><div class="chat-message">Matrix number cannot be found. Please try again.</div></div>';
+            document.getElementById('result').innerHTML = '<div class="chat-box"><div class="chat-icon">⚠️</div><div class="chat-message">Matrix number cannot be found. Please try again.</div></div>';
         });
     }
     </script>
