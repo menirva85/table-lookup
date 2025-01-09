@@ -61,17 +61,28 @@
             background-color: #f5f5f5;
             font-weight: bold;
         }
-        .sample {
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #666;
-        }
-        .zero-mark {
-            background-color: red;
-            color: white;
-        }
         #result {
             margin-top: 20px;
+        }
+        .chat-box {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .chat-message {
+            margin-bottom: 15px;
+            text-align: left;
+            font-size: 1.1em;
+            line-height: 1.5;
+            color: #333;
+        }
+        .chat-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #000000;
         }
     </style>
 </head>
@@ -84,34 +95,14 @@
     </div>
 
     <div id="result">
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Matrix No</th>
-                <th>IA1 (3%)</th>
-                <th>IA2 (3%)</th>
-                <th>IA3 (3%)</th>
-                <th>IA4 (3%)</th>
-                <th>IA5 (3%)</th>
-                <th>Quiz (10%)</th>
-                <th>Midterm (20%)</th>
-                <th>Group Assignment (15%)</th>
-                <th>Total (60%)</th>
-            </tr>
-            <tr>
-                <td>John Doe</td>
-                <td>A123456</td>
-                <td>2.5</td>
-                <td>3.0</td>
-                <td>2.8</td>
-                <td>2.7</td>
-                <td>2.9</td>
-                <td>8.5</td>
-                <td>16.5</td>
-                <td>13.0</td>
-                <td>51.9</td>
-            </tr>
-        </table>
+        <div class="chat-box">
+            <div class="chat-icon">👋</div>
+            <div class="chat-message">
+                Welcome to KT24903 Carry Marks System! <br><br>
+                Please enter your matrix number to view your marks. <br>
+                Your marks will be displayed here after searching.
+            </div>
+        </div>
     </div>
 
     <script>
@@ -138,10 +129,10 @@
                 }
             }
             output += '</table>';
-            document.getElementById('result').innerHTML = found ? output : "Matrix number cannot be found";
+            document.getElementById('result').innerHTML = found ? output : '<div class="chat-box"><div class="chat-icon">❌</div><div class="chat-message">Matrix number cannot be found. Please try again.</div></div>';
         })
         .catch(error => {
-            document.getElementById('result').innerText = "Matrix number cannot be found";
+            document.getElementById('result').innerHTML = '<div class="chat-box"><div class="chat-icon">⚠️</div><div class="chat-message">Matrix number cannot be found. Please try again.</div></div>';
         });
     }
     </script>
