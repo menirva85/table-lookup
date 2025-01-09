@@ -61,6 +61,9 @@
             background-color: #f5f5f5;
             font-weight: bold;
         }
+        #result {
+            margin-top: 20px;
+        }
         .chat-box {
             max-width: 600px;
             margin: 40px auto;
@@ -72,6 +75,7 @@
         }
         .chat-message {
             margin-bottom: 15px;
+            text-align: center;
             font-size: 1.1em;
             line-height: 1.5;
             color: #333;
@@ -80,24 +84,6 @@
             font-size: 2em;
             margin-bottom: 10px;
             color: #000000;
-        }
-        .game-container {
-            margin-top: 40px;
-            padding: 20px;
-            border-top: 2px solid #eee;
-        }
-        .game-heading {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-        .runner-container {
-            height: 150px;
-            max-width: 600px;
-            overflow: hidden;
-            margin: 0 auto;
-        }
-        #offline-resources {
-            display: none;
         }
     </style>
 </head>
@@ -120,23 +106,6 @@
         </div>
     </div>
 
-    <!-- T-Rex Game Section -->
-    <div class="game-container">
-        <div class="game-heading">Take a break with T-Rex Runner Game!</div>
-        <div class="onlyforchrome">
-            <div id="main-frame-error" class="interstitial-wrapper">
-                <div id="offline-resources">
-                    <!-- T-Rex game resources here -->
-                </div>
-                <div class="runner-container">
-                    <canvas class="runner-canvas" width="600" height="150"></canvas>
-                </div>
-                <div class="controller" style="background-color: rgba(247,247,247, .1);"></div>
-            </div>
-        </div>
-        <p style="font-size: 0.9em; color: #666;">Press Space to jump and start the game</p>
-    </div>
-
     <script>
     function searchMarks() {
         var matrixNo = document.getElementById('matrixInput').value.trim().toUpperCase();
@@ -152,9 +121,7 @@
                     output += '<tr>';
                     for (var j = 1; j <= 11; j++) {
                         var mark = cells[j].trim();
-                        // Check for both zero and missing marks
-                        var isZeroOrMissing = mark === '0' || mark === '' || mark === '0.0' || !mark;
-                        var color = isZeroOrMissing ? ' style="background-color: red; color: white;"' : '';
+                        var color = (mark === '0' || mark === '' || mark === '0.0' || !mark) ? ' style="background-color: red; color: white;"' : '';
                         output += '<td' + color + '>' + (mark || '0.0') + '</td>';
                     }
                     output += '</tr>';
@@ -163,41 +130,14 @@
                 }
             }
             output += '</table>';
-            document.getElementById('result').innerHTML = found ? output : '<div class="chat-box"><div class="chat-icon">❌</div><div class="chat-message">Matrix number cannot be found. Please try again.</div></div>';
+            document.getElementById('result').innerHTML = found ? output : 
+                '<div class="chat-box"><div class="chat-icon">❌</div><div class="chat-message">Matrix number cannot be found. Please try again.</div></div>';
         })
         .catch(error => {
-            document.getElementById('result').innerHTML = '<div class="chat-box"><div class="chat-icon">⚠️</div><div class="chat-message">Matrix number cannot be found. Please try again.</div></div>';
+            document.getElementById('result').innerHTML = 
+                '<div class="chat-box"><div class="chat-icon">⚠️</div><div class="chat-message">Matrix number cannot be found. Please try again.</div></div>';
         });
     }
-    </script>
-
-    <!-- T-Rex Game Script -->
-    <script>
-        // T-Rex game code here
-        function Runner(outerContainerId) {
-            // Initialize the game
-            this.outerContainerEl = document.querySelector(outerContainerId);
-            this.containerEl = null;
-            
-            if (this.outerContainerEl) {
-                this.containerEl = this.outerContainerEl.querySelector('.runner-container');
-            }
-            
-            // Game initialization code...
-            this.config = {
-                SPEED: 6,
-                MAX_SPEED: 13,
-                ACCELERATION: 0.001,
-                // Other config values...
-            };
-            
-            this.init();
-        }
-
-        // Start the game if using Chrome
-        if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
-            new Runner('.interstitial-wrapper');
-        }
     </script>
 </body>
 </html>
