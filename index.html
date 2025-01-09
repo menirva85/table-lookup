@@ -54,7 +54,7 @@
         th, td {
             border: 1px solid #000000;
             padding: 8px;
-            text-align: left;
+            text-align: center;
             font-weight: normal;
         }
         th {
@@ -71,10 +71,10 @@
             background-color: #f5f5f5;
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
         }
         .chat-message {
             margin-bottom: 15px;
-            text-align: left;
             font-size: 1.1em;
             line-height: 1.5;
             color: #333;
@@ -83,6 +83,10 @@
             font-size: 2em;
             margin-bottom: 10px;
             color: #000000;
+        }
+        .zero-mark {
+            background-color: red;
+            color: white;
         }
     </style>
 </head>
@@ -120,8 +124,10 @@
                     output += '<tr>';
                     for (var j = 1; j <= 11; j++) {
                         var mark = cells[j].trim();
-                        var color = (mark === '0') ? ' style="background-color: red; color: white;"' : '';
-                        output += '<td' + color + '>' + mark + '</td>';
+                        // Check for both zero and empty/missing marks
+                        var isZeroOrMissing = mark === '0' || mark === '' || mark === '0.0' || !mark;
+                        var color = isZeroOrMissing ? ' style="background-color: red; color: white;"' : '';
+                        output += '<td' + color + '>' + (mark || '0.0') + '</td>';
                     }
                     output += '</tr>';
                     found = true;
