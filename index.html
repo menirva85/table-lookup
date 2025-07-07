@@ -128,7 +128,7 @@
         .then(response => response.text())
         .then(text => {
             var lines = text.split('\n');
-            var output = '<table><tr><th>Name</th><th>Matrix No</th><th>IA1 (3%)</th><th>IA2 (3%)</th><th>IA3 (3%)</th><th>IA4 (3%)</th><th>IA5 (3%)</th><th>Quiz (10%)</th><th>Midterm (20%)</th><th>Group Assignment (15%)</th><th>Total (60%)</th></tr>';
+			var output = '<table><tr><th>Name</th><th>Matrix No</th><th>Lab 1 (2.5%)</th><th>Lab 2 (2.5%)</th><th>Lab 3 (2.5%)</th><th>Lab 4 (2.5%)</th><th>Quiz 1 (5%)</th><th>Quiz 2 (5%)</th><th>Midterm (20%)</th><th>Group Assignment (20%)</th><th>Total (60%)</th></tr>';
             var found = false;
             for (var i = 1; i < lines.length; i++) {
                 var cells = lines[i].split(',');
